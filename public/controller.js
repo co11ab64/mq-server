@@ -1,11 +1,8 @@
 const token = getToken();
+const serverURL = `${window.location.protocol}//${window.location.host}`;
+const socket = io(serverURL);
 
-window.onload = function () {
-    const serverURL = `${window.location.protocol}//${window.location.host}`;
-    const socket = io(serverURL);
-
-    socket.emit("joinRoom", { roomTitle: token });    
-}
+socket.emit("joinRoom", { roomTitle: token }); 
 
 function getToken() {
     let token = window.location.search.match(/token=.*/);
