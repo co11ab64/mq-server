@@ -17,25 +17,25 @@ const io = socketio(expressServer);
 let rooms = [];
 io.on('connection', socket => {
     socket.emit('welcome-msg', { msg: "Welcome to server 2.0" });
-    socket.on('create-room', data => {
+
+    socket.on('create-room', (data, ackFn) => {
         //Create a new room for the analytics designer app
         let room = new Room(rooms.length, uuidv4());
         rooms.push(room);
 
         //Send the room title to the ui to generate the qr-code
-        socket.emit('room-info', { roomTitle: room.roomTitle });
+        ackFn({ roomTitle: room.roomTitle })
 
         //Join the newly created room
         socket.join(room.roomTitle);
-
-        // io.to(room.roomTitle).emit("joined-room",`User has joined the room ${room.roomId}`);
-
-        console.log(socket.rooms);
     });
+    
+    socket.emit('action-from-server',{});
+    
     socket.on('messageToServer', data => {
         socket.to(data.roomTitle).emit("")
     });
-
+    
     socket.on('joinRoom', data => {
         let room = rooms.find(room => room.roomTitle === data.roomTitle);
         if (!room) return;// TODO: Error handling here
