@@ -2,7 +2,7 @@ const token = getToken();
 const serverURL = `${window.location.protocol}//${window.location.host}`;
 const socket = io(serverURL);
 
-socket.emit("joinRoom", { roomTitle: token }); 
+socket.emit("joinRoom", { roomTitle: token });
 
 function getToken() {
     let token = window.location.search.match(/token=.*/);
@@ -12,13 +12,9 @@ function getToken() {
 function onGrossMarginPress() {
     let data = {
         token: token,
-        actions: [
-            {
-                action: "filter",
-                value: "GrossMargin",
-                ts: new Date().getTime()
-            }
-        ]
+        action: "filter",
+        value: "GrossMargin",
+        ts: new Date().getTime()
     };
-    socket.emit("messageToServer",data);
+    socket.emit("messageToServer", data);
 }
