@@ -52,7 +52,8 @@ io.on('connection', socket => {
 
         socket.to(room.roomTitle).on('messageToServer', data => {
             // socket.to(data.roomTitle).emit("")
-            console.log(`Action ${data}`)
+            // console.log(`Action ${data}`);
+            socket.emit('action-from-server',data);
         });
     });
 })
