@@ -1,6 +1,6 @@
 window.onload = function () {
     const token = getToken();
-    const serverURL = `${window.location.protocol}//${window.location.host}/action`;
+    const serverURL = `${window.location.protocol}//${window.location.host}`;
     const socket = io(serverURL);
 
     socket.emit("joinRoom", { roomTitle: token });
