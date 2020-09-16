@@ -20,9 +20,11 @@ const expressServer = app.listen(port, () => {
 const io = socketio(expressServer);
 let rooms = [];
 io.on('connection', socket => {
+    console.log("Connection Established");
     socket.emit('welcome-msg', { msg: "Welcome to server 2.0" });
 
     socket.on('create-room', (data, ackFn) => {
+        console.log("Creating Room");
         //Create a new room for the analytics designer app
         let room = new Room(rooms.length, uuidv4());
         rooms.push(room);
