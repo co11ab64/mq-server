@@ -20,6 +20,7 @@ window.onload = async function () {
         generateQRCode(token);
     });
     socket.on("action-from-server", data => {
+        console.log("Sent action to the client");
         window.top.postMessage(`${data.action}:${data.value}`, " https://sactrial-saceu10-e7imrcd69ivxk4fblyi8bf51.eu10.hanacloudservices.cloud.sap/");
     });
 }
