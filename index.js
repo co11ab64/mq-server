@@ -12,6 +12,10 @@ const expressServer = app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });
 
+app.get("/",(req,res)=>{
+    res.render(__dirname+"/public/index.html");
+})
+
 //Create the socket server
 const io = socketio(expressServer);
 let rooms = [];
