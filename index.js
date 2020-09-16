@@ -30,15 +30,23 @@ io.on('connection', socket => {
         socket.join(room.roomTitle);
     });
     
-    socket.emit('action-from-server',{});
+    // socket.emit('action-from-server',{});
     
-    socket.on('messageToServer', data => {
-        socket.to(data.roomTitle).emit("")
-    });
+    // socket.on('messageToServer', data => {
+    //     // socket.to(data.roomTitle).emit("")
+    //     console.log(`Action ${data}`)
+    // });
     
     socket.on('joinRoom', data => {
         let room = rooms.find(room => room.roomTitle === data.roomTitle);
         if (!room) return;// TODO: Error handling here
         socket.join(room.roomTitle);
+
+        console.log("Controller joined room", room.roomTitle);
+
+        socket.to(room.roomTitle).on('messageToServer', data => {
+            // socket.to(data.roomTitle).emit("")
+            console.log(`Action ${data}`)
+        });
     });
 })
